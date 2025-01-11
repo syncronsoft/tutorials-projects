@@ -58,6 +58,7 @@ public class SecurityConfiguration {
                     "/register*",
                     "/login",
                     "/actuator/**").permitAll();
+            request.requestMatchers("/users/all").hasAuthority("ADMIN");
             request.anyRequest().authenticated();
         }).sessionManagement((sessions) -> sessions
                 .requireExplicitAuthenticationStrategy(false)
