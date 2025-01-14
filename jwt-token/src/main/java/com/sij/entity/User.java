@@ -34,7 +34,13 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(name = "account_non_expired")
+    private boolean accountNonExpired=true;
+
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked=true;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -64,12 +70,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return accountNonLocked;
     }
 
     @Override
@@ -136,8 +142,9 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public User setRoles(Set<Role> roles) {
         this.roles = roles;
+        return this;
     }
 
     @Override

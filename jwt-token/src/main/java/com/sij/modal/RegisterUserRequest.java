@@ -1,9 +1,12 @@
 package com.sij.modal;
 
+import com.sij.entity.Role;
+
 public class RegisterUserRequest {
     private String email;
     private String password;
     private String fullName;
+    private Role role;
 
     public String getEmail() {
         return email;
@@ -29,6 +32,15 @@ public class RegisterUserRequest {
 
     public RegisterUserRequest setFullName(String fullName) {
         this.fullName = fullName;
+        return this;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public RegisterUserRequest setRole(Role role) {
+        this.role = role;
         return this;
     }
 
